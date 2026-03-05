@@ -43,22 +43,32 @@ def _pct(v: float) -> str:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Cross-Channel Ads Intelligence", layout="wide")
+    st.set_page_config(
+        page_title="Cross-Channel Ads Intelligence",
+        layout="wide",
+        initial_sidebar_state="collapsed",
+    )
+
+    st.markdown(
+        """
+        <style>
+        section[data-testid="stSidebar"],
+        [data-testid="stSidebar"],
+        [data-testid="stSidebarCollapsedControl"],
+        [data-testid="collapsedControl"] {
+            display: none !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     st.title("Cross-Channel Ads Intelligence + Budget Optimizer")
     st.caption("Unifies Facebook, Google, and TikTok performance into one decision dashboard.")
 
-    st.sidebar.header("Data Sources")
-    fb_file = st.sidebar.file_uploader("Facebook CSV", type="csv")
-    gg_file = st.sidebar.file_uploader("Google CSV", type="csv")
-    tt_file = st.sidebar.file_uploader("TikTok CSV", type="csv")
-
-    fb_path = st.sidebar.text_input("Facebook path", value=DEFAULT_PATHS["facebook"])
-    gg_path = st.sidebar.text_input("Google path", value=DEFAULT_PATHS["google"])
-    tt_path = st.sidebar.text_input("TikTok path", value=DEFAULT_PATHS["tiktok"])
-
-    facebook_source = fb_file if fb_file is not None else fb_path
-    google_source = gg_file if gg_file is not None else gg_path
-    tiktok_source = tt_file if tt_file is not None else tt_path
+    facebook_source = DEFAULT_PATHS["facebook"]
+    google_source = DEFAULT_PATHS["google"]
+    tiktok_source = DEFAULT_PATHS["tiktok"]
 
     try:
         df = load_data(facebook_source, google_source, tiktok_source)
