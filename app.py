@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -13,10 +15,11 @@ from src.data_pipeline import (
 )
 from src.optimizer import optimize_budget, summarize_allocation
 
+BASE_DIR = Path(__file__).resolve().parent
 DEFAULT_PATHS = {
-    "facebook": "/Users/rodrigomateos/Desktop/01_facebook_ads.csv",
-    "google": "/Users/rodrigomateos/Desktop/02_google_ads.csv",
-    "tiktok": "/Users/rodrigomateos/Desktop/03_tiktok_ads.csv",
+    "facebook": str(BASE_DIR / "Datasets" / "01_facebook_ads.csv"),
+    "google": str(BASE_DIR / "Datasets" / "02_google_ads.csv"),
+    "tiktok": str(BASE_DIR / "Datasets" / "03_tiktok_ads.csv"),
 }
 
 
